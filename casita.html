@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>CasitaCamila</title>
+	<style>
+		body {
+			margin: 0; 
+		}
+	</style>
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+
+    <script>
+         let img; // Declarar variable 'img'.
+        let totalIte = 15;
+        let nubes = [];
+                var img2;
+                var img3;
+                var img5;
+                var xpos = 0;
+                var ypos = 200;
+
+                let nube;
+                let snowflakes=[];
+  
+
+
+function snowflake() {
+ 
+  this.posX = 0;
+  this.posY = random(-50, 0);
+  this.initialangle = random(0, 2 * PI);
+  this.size = random(2, 5);
+
+ 
+  this.radius = sqrt(random(pow(width / 2, 2)));
+
+  this.update = function(time) {
+    
+    let w = 0.6; 
+    let angle = w * time + this.initialangle;
+    this.posX = width / 2 + this.radius * sin(angle);
+
+   
+    this.posY += pow(this.size, 0.5);
+
+    
+    if (this.posY > height) {
+      let index = snowflakes.indexOf(this);
+      snowflakes.splice(index, 1);
+    }
+  };
+
+  this.display = function() {
+    ellipse(this.posX, this.posY, this.size);
+  };
+}
+
+                function preload() {
+                    nube = loadImage("nube.png");
+                }
+        function setup() {
+            //frameRate(1);
+            createCanvas(1000, 1000);
+            noStroke()
+            img = createImage(1000, 1000);
+            img.loadPixels();
+            for (let x = 0; x < img.width; x++) {
+                for (let y = 0; y < img.height; y++) {
+
+                    
+                    //sol
+                    if (Math.pow(x - 700, 2) + Math.pow(y - 250, 2) < 75000) { 
+                        img.set(x, y, [238, 22, 218 , 20]); 
+                    }
+                    if (Math.pow(x - 700, 2) + Math.pow(y - 250, 2) < 38000) { 
+                        img.set(x, y, [238, 225, 22  , 25]); 
+                    }
+                    if (Math.pow(x - 700, 2) + Math.pow(y - 250, 2) < 25000) { 
+                        img.set(x, y, [247, 246, 179, 255]); 
+                    }
+                    
+                    
+                    //montañas
+                    if (50 * Math.cos(0.009 * x) + 300 < y) {
+                        img.set(x, y, [234, 44, 182 , 255]);
+                    }
+                   
+                    if (50 * Math.cos(0.009 * x) + 320 < y) {
+                        img.set(x, y, [232, 76, 189  , 255]);
+                    }
+                    if (50 * Math.cos(0.009 * x) + 350 < y) {
+                        img.set(x, y, [234, 44, 182 , 255]);
+                    }
+                    if (50 * Math.cos(0.009 * x) + 370 < y) {
+                        img.set(x, y, [232, 76, 189  , 255]);
+                    }
+                    if (50 * Math.cos(0.009 * x) + 400 < y) {
+                        img.set(x, y, [234, 44, 182 , 255]);
+                    }
+                    if (50 * Math.cos(0.009 * x) +420 < y) {
+                        img.set(x, y, [232, 76, 189  , 255]);
+                    }
+                    if (50 * Math.cos(0.009 * x) + 440 < y) {
+                        img.set(x, y, [234, 44, 182 , 255]);
+                    }
+                    //caramelo
+                    
+                    //amarilla
+                    
+                    if (5 * Math.cos(0.02 * x) + 950 < y) {
+                        img.set(x, y, [129, 74, 74  , 255]);
+                    }
+                    
+                    if (5 * Math.cos(0.02 * x) + 450 < y) {
+                        img.set(x, y, [129, 74, 74  , 255]);
+                    }
+                    if (5 * Math.cos(0.02 * x) + 500 < y) {
+                        img.set(x, y, [255, 255, 255  , 255]);
+                    }
+
+                    if (5 * Math.cos(0.02 * x) + 600 < y) {
+                        img.set(x, y, [129, 74, 74  , 255]);
+                    }
+                    
+                    if (5 * Math.cos(0.02 * x) + 650 < y) {
+                        img.set(x, y, [251, 228, 82, 255]);
+                    }
+                    if (5 * Math.cos(0.02 * x) + 700 < y) {
+                        img.set(x, y, [213, 51, 216   , 255]);
+                    }
+
+                    
+
+
+                    //cereza
+
+                    if (Math.pow(x - 350, 2) + Math.pow(y - 225, 2) < 700) { 
+                        img.set(x, y, [160, 7, 7   ,252]); 
+                    }
+                    if (Math.pow(x - 1000, 2) + Math.pow(y - 230, 2) < 700) { 
+                        img.set(x, y, [160, 7, 7  ,252]); 
+                    }
+                    if (Math.pow(x - 350, 2) + Math.pow(y - 225, 2) < 400) { 
+                        img.set(x, y, [253, 4, 4   ,252]); 
+                    }
+                    if (Math.pow(x - 1000, 2) + Math.pow(y - 230, 2) < 400) { 
+                        img.set(x, y, [253, 4, 4   ,252]); 
+                    }
+                    //myms
+                    if (Math.pow(x - 60, 2) + Math.pow(y - 480, 2) < 100) { 
+                        img.set(x, y, [247, 235, 43   ,252]); 
+                    }
+                    if (Math.pow(x - 150, 2) + Math.pow(y - 475, 2) < 100) { 
+                        img.set(x, y, [247, 43, 43  ,252]); 
+                    }
+                    if (Math.pow(x - 250, 2) + Math.pow(y - 474, 2) < 100) { 
+                        img.set(x, y, [219, 43, 247   ,252]); 
+                    }
+                    if (Math.pow(x - 350, 2) + Math.pow(y - 479, 2) < 100) { 
+                        img.set(x, y, [43, 226, 247  ,252]); 
+                    }
+                    if (Math.pow(x - 450, 2) + Math.pow(y - 470, 2) < 100) { 
+                        img.set(x, y, [9, 200, 55  ,252]); 
+                    }
+                    if (Math.pow(x - 550, 2) + Math.pow(y - 489, 2) < 100) { 
+                        img.set(x, y, [247, 241, 43   ,252]); 
+                    }
+                    if (Math.pow(x - 660, 2) + Math.pow(y - 470, 2) < 100) { 
+                        img.set(x, y, [247, 49, 43   ,252]); 
+                    }
+                    if (Math.pow(x - 720, 2) + Math.pow(y - 480, 2) < 100) { 
+                        img.set(x, y, [43, 213, 247  ,252]); 
+                    }
+                    if (Math.pow(x - 826, 2) + Math.pow(y - 476, 2) < 100) { 
+                        img.set(x, y, [9, 200, 55  ,252]); 
+                    }
+                    if (Math.pow(x - 905, 2) + Math.pow(y - 480, 2) < 100) { 
+                        img.set(x, y, [247, 235, 43  ,252]); 
+                    }
+                    if (Math.pow(x - 1000, 2) + Math.pow(y - 480, 2) < 100) { 
+                        img.set(x, y, [247, 43, 241   ,252]); 
+                    }
+
+                    //myms abajo
+                    if (Math.pow(x - 60, 2) + Math.pow(y - 620, 2) < 100) { 
+                        img.set(x, y, [247, 235, 43   ,252]); 
+                    }
+                    if (Math.pow(x - 150, 2) + Math.pow(y - 622, 2) < 100) { 
+                        img.set(x, y, [247, 43, 43  ,252]); 
+                    }
+                    if (Math.pow(x - 250, 2) + Math.pow(y -616, 2) < 100) { 
+                        img.set(x, y, [219, 43, 247   ,252]); 
+                    }
+                    if (Math.pow(x - 350, 2) + Math.pow(y - 623, 2) < 100) { 
+                        img.set(x, y, [43, 226, 247  ,252]); 
+                    }
+                    if (Math.pow(x - 450, 2) + Math.pow(y -620, 2) < 100) { 
+                        img.set(x, y, [9, 200, 55  ,252]); 
+                    }
+                    if (Math.pow(x - 550, 2) + Math.pow(y - 623, 2) < 100) { 
+                        img.set(x, y, [247, 241, 43   ,252]); 
+                    }
+                    if (Math.pow(x - 660, 2) + Math.pow(y - 620, 2) < 100) { 
+                        img.set(x, y, [247, 49, 43   ,252]); 
+                    }
+                    if (Math.pow(x - 720, 2) + Math.pow(y - 623, 2) < 100) { 
+                        img.set(x, y, [43, 213, 247  ,252]); 
+                    }
+                    if (Math.pow(x - 826, 2) + Math.pow(y -620, 2) < 100) { 
+                        img.set(x, y, [9, 200, 55  ,252]); 
+                    }
+                    if (Math.pow(x - 905, 2) + Math.pow(y - 625, 2) < 100) { 
+                        img.set(x, y, [247, 235, 43  ,252]); 
+                    }
+                    if (Math.pow(x - 1000, 2) + Math.pow(y - 620, 2) < 100) { 
+                        img.set(x, y, [247, 43, 241   ,252]); 
+                    }
+                   
+
+                     //caramelos arcoiris
+
+                     //rojo
+                     if (Math.pow(x - 800, 2) + Math.pow(y - 1000, 2) < 40000) { 
+                        img.set(x, y, [255, 0, 0  , 255]); 
+                    }
+                    //naranja
+                    if (Math.pow(x - 800, 2) + Math.pow(y - 1000, 2) < 33800) { 
+                        img.set(x, y, [251, 169, 26  , 255]); 
+                    }
+                    //amarillo
+                    if (Math.pow(x - 800, 2) + Math.pow(y - 1000, 2) < 30000) { 
+                        img.set(x, y, [234, 221, 20  , 255]); 
+                    }
+                    //verde
+                    if (Math.pow(x - 800, 2) + Math.pow(y - 1000, 2) < 26800) { 
+                        img.set(x, y, [56, 234, 20   , 255]); 
+                    }
+                     //azul
+                     if (Math.pow(x - 800, 2) + Math.pow(y - 1000, 2) < 24000) { 
+                        img.set(x, y, [20, 166, 234    , 255]); 
+                    }
+                    //morado
+                    if (Math.pow(x - 800, 2) + Math.pow(y - 1000, 2) < 20000) { 
+                        img.set(x, y, [169, 20, 234    , 255]); 
+                    }
+                    //suelo
+                    if (Math.pow(x - 800, 2) + Math.pow(y - 1000, 2) < 17000) { 
+                        img.set(x, y, [255, 255, 255    , 255]); 
+                    }
+                    //////
+                      //rojo
+                      if (Math.pow(x - 100, 2) + Math.pow(y - 1000, 2) < 40000) { 
+                        img.set(x, y, [255, 0, 0  , 255]); 
+                    }
+                    //naranja
+                    if (Math.pow(x - 100, 2) + Math.pow(y - 1000, 2) < 33800) { 
+                        img.set(x, y, [251, 169, 26  , 255]); 
+                    }
+                    //amarillo
+                    if (Math.pow(x - 100, 2) + Math.pow(y - 1000, 2) < 30000) { 
+                        img.set(x, y, [234, 221, 20  , 255]); 
+                    }
+                    //verde
+                    if (Math.pow(x - 100, 2) + Math.pow(y - 1000, 2) < 26800) { 
+                        img.set(x, y, [56, 234, 20   , 255]); 
+                    }
+                     //azul
+                     if (Math.pow(x - 100, 2) + Math.pow(y - 1000, 2) < 24000) { 
+                        img.set(x, y, [20, 166, 234    , 255]); 
+                    }
+                    //morado
+                    if (Math.pow(x - 100, 2) + Math.pow(y - 1000, 2) < 20000) { 
+                        img.set(x, y, [169, 20, 234    , 255]); 
+                    }
+                    //suelo
+                    if (Math.pow(x - 100, 2) + Math.pow(y - 1000, 2) < 17000) { 
+                        img.set(x, y, [255, 255, 255    , 255]); 
+                    }
+                    ///////////
+
+                     //rojo
+                     if (Math.pow(x - 450, 2) + Math.pow(y - 1000, 2) < 40000) { 
+                        img.set(x, y, [255, 0, 0  , 255]); 
+                    }
+                    //naranja
+                    if (Math.pow(x - 450, 2) + Math.pow(y - 1000, 2) < 33800) { 
+                        img.set(x, y, [251, 169, 26  , 255]); 
+                    }
+                    //amarillo
+                    if (Math.pow(x - 450, 2) + Math.pow(y - 1000, 2) < 30000) { 
+                        img.set(x, y, [234, 221, 20  , 255]); 
+                    }
+                    //verde
+                    if (Math.pow(x - 450, 2) + Math.pow(y - 1000, 2) < 26800) { 
+                        img.set(x, y, [56, 234, 20   , 255]); 
+                    }
+                     //azul
+                     if (Math.pow(x - 450, 2) + Math.pow(y - 1000, 2) < 24000) { 
+                        img.set(x, y, [20, 166, 234    , 255]); 
+                    }
+                    //morado
+                    if (Math.pow(x - 450, 2) + Math.pow(y - 1000, 2) < 20000) { 
+                        img.set(x, y, [169, 20, 234    , 255]); 
+                    }
+                    //suelo
+                    if (Math.pow(x - 450, 2) + Math.pow(y - 1000, 2) < 17000) { 
+                        img.set(x, y, [255, 255, 255    , 255]); 
+                    }
+                   
+                   
+                   
+                    
+                    
+                }
+            }
+            img.updatePixels();
+
+            //Capa
+            img3=createImage(1000,500);
+            img3.loadPixels()
+            for (let x = 0; x < img3.width; x++) {
+                for (let y = 0; y < img3.height; y++) {
+                    if (50 * Math.cos(0.009 * x) + 80 < y) {
+                       
+                        if ( 40*Math.sin(0.04 * x) +120 < y) {
+                         } 
+                         else {
+                      img3.set(x, y, [255, 255, 255  , 255]);
+                         }
+                   
+                    }
+   
+                }}
+                img3.updatePixels();
+            
+            img4=createImage(1000,500);
+            img4.loadPixels()
+            for (let x = 0; x < img4.width; x++) {
+                for (let y = 0; y < img4.height; y++) {
+                    if (50 * Math.cos(0.009 * x) + 80 < y) {
+                       
+                        if ( 40*Math.sin(0.04 * x) +150 < y) {
+                         } 
+                         else {
+                      img4.set(x, y, [244, 199, 244  , 255]);
+                         }
+                   
+                    }
+   
+                }}
+                img4.updatePixels();
+
+                img5=createImage(200,200)
+                img5.loadPixels()
+                for (let x = 0; x < img5.width; x++) {
+                    for (let y = 0; y < img5.height; y++) {
+                        if (Math.pow(x - 700, 2) + Math.pow(y - 250, 2) < 75000) { 
+                        img.set(x, y, [255, 255, 255 , 20]); 
+                    }
+
+                }
+               
+                    
+                
+
+                }
+                img5.updatePixels();
+
+
+            }
+            function branch(h) {
+ 
+  h *= 0.66;
+
+ 
+  if (h > 100) {
+    push();   
+    rotate(theta);   
+    line(0, 0, 0, -h);  
+
+    translate(0, -h); 
+    fill(245, 11, 149 )
+    ellipse(0, 0, 55, 55)
+    branch(h);       
+    pop();     
+    push();
+    rotate(-theta);
+    line(0, 0, 0, -h);
+    translate(0, -h);
+    fill(245, 11, 149 )
+    ellipse(0, 0, 55, 55)
+    branch(h);
+    pop();
+  }
+}
+            
+
+                     
+
+            
+    function draw() {
+
+        background(243, 188, 220 );
+        
+      
+    image(img, 0, 0);
+     xpos += 5;
+    image(nube, xpos -110, ypos-90, 200, 150);
+    image(nube, xpos -520, ypos-90, 200, 100);
+    image(nube, xpos -200, ypos-90, 200, 80);
+    image(img4, 0, 220);  
+    image(img3, 0, 220); 
+    image(img5,500,500);
+    if(xpos>1500){xpos=0}
+         
+              
+    stroke(0);
+  
+  let a = 25;
+ 
+  theta = radians(a);
+  
+  translate(width/2 + -300,height-100);
+
+  translate (-(width/2-300),-(height-100))
+  stroke(255);
+  let t = frameCount / 60; 
+
+
+  for (let i = 0; i < random(5); i++) {
+    snowflakes.push(new snowflake()); 
+  }
+
+  
+  for (let flake of snowflakes) {
+    flake.update(t); 
+    flake.display(); 
+  }
+  stroke(0);
+// line(500, 750, 750, 750);
+// line(500, 850, 750, 850);
+// line(500,850,500,750);
+// line(750,850,750,750);
+
+// line(500,750,625,700);
+// line(750,750,625,700);
+
+
+  
+        }
+        
+        
+
+    </script>
+</body>
+
+</html>
