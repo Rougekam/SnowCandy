@@ -5,3 +5,5 @@ Este paisaje fue realizado unicamente con psj5, con el fin de simular un paisaje
 
 Puedes mirar la pagina [aqui](https://rougekam.github.io/SnowCandy/).
 
+
+![imagen](SnowCandy.PNG)
